@@ -1,6 +1,7 @@
 import { useEffect, useRef, memo } from "react";
 import { fromEvent } from "rxjs";
 import { iframeScript } from "./iframe-script";
+import "./index.scss";
 
 export interface EditAreaProps {
   content?: string;

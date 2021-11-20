@@ -13,16 +13,3 @@
   flex-direction: column;
   border-radius: 5px;
 }
-
-.toolbar {
-  height: 40px;
-  display: flex;
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.edit-area {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
-  position: relative;
-}

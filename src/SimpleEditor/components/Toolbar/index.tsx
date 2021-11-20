@@ -1,5 +1,6 @@
 import { EditorSelection } from "../../selection";
-import { LinkTool } from "./tool";
+import { LinkTool, ClearTool, CaseTool, TableTool, UploadTool } from "./tool";
+import "./index.scss";
 
 export interface ToolbarProps {
   selection?: EditorSelection;
@@ -10,9 +11,11 @@ const Toolbar = (props: ToolbarProps) => {
   const { selection, expands = [] } = props;
   return (
     <div className="toolbar">
-      {[LinkTool, ...expands].map((Tool) => (
-        <div key={Tool.displayName}>{Tool({ selection })}</div>
-      ))}
+      {[LinkTool, ClearTool, CaseTool, TableTool, UploadTool, ...expands].map(
+        (Tool) => (
+          <div key={Tool.displayName}>{Tool({ selection })}</div>
+        )
+      )}
     </div>
   );
 };

@@ -3,13 +3,13 @@ import { EditorSelection } from "../../../selection";
 import Dropdown from "../uikit/Dropdown/Dropdown";
 import ELabelItem from "../uikit/ELabelItem/ELabelItem";
 import { EInput, EButton } from "../uikit";
-import { createHTMLElement, createTextNode } from "../utils";
+import { createHTMLElement } from "../utils";
 
-export interface LinkToolPorps {
+export interface TableToolPorps {
   selection?: EditorSelection;
 }
 
-export const LinkTool: React.FC<LinkToolPorps> = (props) => {
+export const TableTool: React.FC<TableToolPorps> = (props) => {
   const { selection } = props;
   const linkRef = useRef<any>(null);
   const textRef = useRef<any>(null);
@@ -36,7 +36,9 @@ export const LinkTool: React.FC<LinkToolPorps> = (props) => {
           target: "_blank",
         },
       });
-      linkDom.appendChild(isSelectedContent ? content : createTextNode(text));
+      linkDom.appendChild(
+        isSelectedContent ? content : document.createTextNode(text)
+      );
       selection?.insertNode(linkDom);
     }
     setIsOpen(false);
@@ -46,7 +48,7 @@ export const LinkTool: React.FC<LinkToolPorps> = (props) => {
       str
     );
   };
-  const onToolbarClick = () => {
+  const onLabelClick = () => {
     setIsSelectedContent(!!selection?.getContent()?.firstChild);
     setIsOpen(true);
   };
@@ -55,8 +57,7 @@ export const LinkTool: React.FC<LinkToolPorps> = (props) => {
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       selection={selection}
-      onToolbarClick={onToolbarClick}
-      labelFactory={() => <span>Link</span>}
+      labelFactory={() => <span onClick={onLabelClick}>Table</span>}
       viewFactory={() => (
         <>
           {isSelectedContent ? null : (
@@ -76,4 +77,4 @@ export const LinkTool: React.FC<LinkToolPorps> = (props) => {
   );
 };
 
-LinkTool.displayName = "LinkTool";
+TableTool.displayName = "TableTool";

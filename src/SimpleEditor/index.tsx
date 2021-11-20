@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import EditArea from "./components/EditArea";
 import Toolbar from "./components/Toolbar";
 import { EditorSelection } from "./selection";
+import { Observable, Subject } from "rxjs";
 import "./styles/index.scss";
 
 export interface SimpleEditorProps {
@@ -17,7 +18,8 @@ const SimpleEditor: React.FC<SimpleEditorProps> = (props) => {
   const onIframeMounted = useCallback(
     (contentDocument: Document) => {
       if (!selection) {
-        setSelection(new EditorSelection(contentDocument));
+        const nextSelection = new EditorSelection(contentDocument);
+        setSelection(nextSelection);
       }
     },
     [selection]
