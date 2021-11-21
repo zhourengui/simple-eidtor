@@ -1,3 +1,4 @@
+import { FunctionComponent } from "react";
 import { EditorSelection } from "../../selection";
 import { EditorContent } from "../../editor-content";
 import { BoldTool, UnderlineTool, DelTool, ItiltTool } from "./tool";
@@ -5,7 +6,7 @@ import { BoldTool, UnderlineTool, DelTool, ItiltTool } from "./tool";
 export interface ToolbarProps {
   selection?: EditorSelection;
   editorContent?: EditorContent;
-  expands?: React.FC<any>[];
+  expands?: FunctionComponent<Object>[];
 }
 
 const Toolbar = (props: ToolbarProps) => {

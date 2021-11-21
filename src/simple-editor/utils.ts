@@ -1,17 +1,14 @@
-// @ts-nocheck
-
 export interface HTMLElementOption {
   type: string;
   classes?: string[];
   attrs?: { [key: string]: any };
   styles?: { [key: string]: any };
-  props?: { [key: string]: any };
   children?: (Node | string)[];
   onCreated?(el: HTMLElement): void;
 }
 
 export function createHTMLElement(options: HTMLElementOption): HTMLElement {
-  const { type, attrs, props, children, classes, styles, onCreated } = options;
+  const { type, attrs, children, classes, styles, onCreated } = options;
   const el = document.createElement(type);
 
   if (attrs) {
@@ -30,10 +27,6 @@ export function createHTMLElement(options: HTMLElementOption): HTMLElement {
     classes.forEach((key) => el.classList.add(key));
   }
 
-  if (props) {
-    Object.keys(props).forEach((key) => (el[key] = props[key]));
-  }
-
   if (children) {
     children
       .filter((c) => c)
@@ -41,7 +34,8 @@ export function createHTMLElement(options: HTMLElementOption): HTMLElement {
         el.appendChild(
           c instanceof Node
             ? el.appendChild(c)
-            : createTextNode(typeof c === "object" ? c.data : c)
+            : // @ts-ignore
+              createTextNode(typeof c === "object" ? c.data : c)
         )
       );
   }
@@ -85,16 +79,15 @@ export const isMobile = () => {
   return false;
 };
 
-export const getAllTextNodeFromElement = (
-  node: ParentNode | null
-): string[] => {
-  const textNodes = [];
-  const rec = (node: Node) => {
+export const getAllTextNodeFromElement = (node: ParentNode | null) => {
+  const textNodes: string[] = [];
+  const rec = (node: ParentNode | ChildNode | null) => {
     if (node) {
       const childNodes = node.childNodes;
       childNodes.forEach((childNode) => {
         const nodeType = childNode.nodeType;
         if (nodeType === 3) {
+          // @ts-ignore
           textNodes.push(childNode.data);
         } else if (nodeType === 1) {
           rec(childNode);

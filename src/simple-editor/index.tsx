@@ -7,7 +7,7 @@ import "./styles/index.scss";
 
 export interface SimpleEditorProps {
   content?: string;
-  expands?: React.FC<any>[];
+  expands?: FunctionComponent<Object>[];
 }
 
 const SimpleEditor: React.FC<SimpleEditorProps> = (props) => {
