@@ -1,6 +1,6 @@
-import { ToolbarItem } from "../uikit";
-import { createTextNode } from "../../../utils";
-import { ToolProps } from "./tool";
+import { ToolbarItem } from "../components/toolbar/uikit";
+import { createTextNode } from "../utils";
+import { ToolProps } from "../components/toolbar/tool/tool";
 
 export const CaseTool: React.FC<ToolProps> = (props) => {
   const { selection } = props;

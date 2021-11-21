@@ -1,6 +1,6 @@
 import { EditorSelection } from "../../selection";
-import { LinkTool, ClearTool, CaseTool, TableTool, UploadTool } from "./tool";
 import { EditorContent } from "../../editor-content";
+import { BoldTool, UnderlineTool, DelTool, ItiltTool } from "./tool";
 
 export interface ToolbarProps {
   selection?: EditorSelection;
@@ -12,11 +12,9 @@ const Toolbar = (props: ToolbarProps) => {
   const { selection, editorContent, expands = [] } = props;
   return (
     <div className="toolbar">
-      {[LinkTool, ClearTool, CaseTool, TableTool, UploadTool, ...expands].map(
-        (Tool) => (
-          <div key={Tool.displayName}>{Tool({ selection, editorContent })}</div>
-        )
-      )}
+      {[BoldTool, UnderlineTool, DelTool, ItiltTool, ...expands].map((Tool) => (
+        <div key={Tool.displayName}>{Tool({ selection, editorContent })}</div>
+      ))}
     </div>
   );
 };

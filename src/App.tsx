@@ -1,11 +1,20 @@
-import { TextSize } from "./ExpandsTool/TextSize";
-import SimpleEditor from "./SimpleEditor";
+import {
+  CaseTool,
+  ClearTool,
+  LinkTool,
+  TableTool,
+  UploadTool,
+} from "./simple-editor/expands-tool";
+import SimpleEditor from "./simple-editor";
 
 function App() {
   return (
     <div>
       <h1>Rich Text Editor</h1>
-      <SimpleEditor content="<font>默认文本</font>" expands={[TextSize]} />
+      <SimpleEditor
+        content=""
+        expands={[CaseTool, LinkTool, ClearTool, TableTool, UploadTool]}
+      />
     </div>
   );
 }

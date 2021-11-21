@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import EditArea from "./components/EditArea";
-import Toolbar from "./components/Toolbar";
+import EditArea from "./components/editarea";
+import Toolbar from "./components/toolbar";
 import { EditorContent } from "./editor-content";
 import { EditorSelection } from "./selection";
 import "./styles/index.scss";
@@ -23,7 +23,6 @@ const SimpleEditor: React.FC<SimpleEditorProps> = (props) => {
         setSelection(nextSelection);
         nextSelection.subscribe((selecion) => {
           // 富文本光标变化时触发
-          console.log(selecion.getRangeAt());
         });
         setEditorContent(new EditorContent(contentDocument));
       }

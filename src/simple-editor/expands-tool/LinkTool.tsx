@@ -1,8 +1,12 @@
 import { useRef, useState } from "react";
-import ELabelItem from "../uikit/ELabelItem";
-import { EInput, EButton, Dropdown } from "../uikit";
-import { createHTMLElement, createTextNode } from "../../../utils";
-import { ToolProps } from "./tool";
+import {
+  EInput,
+  EButton,
+  Dropdown,
+  ELabelItem,
+} from "../components/toolbar/uikit";
+import { createHTMLElement, createTextNode } from "../utils";
+import { ToolProps } from "../components/toolbar/tool/tool";
 
 export const LinkTool: React.FC<ToolProps> = (props) => {
   const { selection, editorContent } = props;

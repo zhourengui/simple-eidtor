@@ -1,7 +1,12 @@
 import { useState, MouseEvent } from "react";
-import { EInput, EButton, Dropdown, ELabelItem } from "../uikit";
-import { createHTMLElement, isMobile } from "../../../utils";
-import { ToolProps } from "./tool";
+import {
+  EInput,
+  EButton,
+  Dropdown,
+  ELabelItem,
+} from "../components/toolbar/uikit";
+import { createHTMLElement, isMobile } from "../utils";
+import { ToolProps } from "../components/toolbar/tool/tool";
 
 export const TableTool: React.FC<ToolProps> = (props) => {
   const { selection, editorContent } = props;

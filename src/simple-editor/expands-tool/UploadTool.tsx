@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { ToolbarItem, Upload } from "../uikit";
-import { UploadFile } from "../uikit/Upload";
-import { createHTMLElement, generateImage } from "../../../utils";
-import { ToolProps } from "./tool";
+import { ToolbarItem, Upload } from "../components/toolbar/uikit";
+import { createHTMLElement, generateImage } from "../utils";
+import { ToolProps } from "../components/toolbar/tool/tool";
+import { UploadFile } from "../components/toolbar/uikit/Upload";
 
 export const UploadTool: React.FC<ToolProps> = (props) => {
   const { selection, editorContent } = props;
