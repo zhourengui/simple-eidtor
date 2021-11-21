@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { FunctionComponent, useCallback, useEffect, useState } from "react";
 import EditArea from "./components/editarea";
 import Toolbar from "./components/toolbar";
 import { EditorContent } from "./editor-content";
@@ -21,10 +21,11 @@ const SimpleEditor: React.FC<SimpleEditorProps> = (props) => {
       if (!selection) {
         const nextSelection = new EditorSelection(contentDocument);
         setSelection(nextSelection);
-        nextSelection.subscribe((selecion) => {
+        nextSelection.subscribe(() => {
           // 富文本光标变化时触发
         });
         setEditorContent(new EditorContent(contentDocument));
+        // contentDocument.addEventListener("");
       }
     },
     [selection]
