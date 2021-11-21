@@ -1,7 +1,7 @@
 import { ToolProps } from "../components/toolbar/tool/tool";
 import { ToolbarItem } from "../components/toolbar/uikit";
 import { NodeName } from "../constant";
-import { getAllTextNodeFromElement } from "../utils";
+import { createHTMLElement, getAllTextNodeFromElement } from "../utils";
 
 export const ClearTool: React.FC<ToolProps> = (props) => {
   const { selection, editorContent } = props;
@@ -36,12 +36,21 @@ export const ClearTool: React.FC<ToolProps> = (props) => {
         processingElement = parentElement;
         continue;
       }
-      processingElement = parentElement;
       break;
     }
 
     const textNodes = getAllTextNodeFromElement(processingElement);
     processingElement?.replaceChildren(...textNodes);
+
+    if (clearNodeName.includes(processingElement?.nodeName as NodeName)) {
+      processingElement?.parentElement?.replaceChild(
+        createHTMLElement({
+          type: "font",
+          children: Array.from(processingElement.childNodes),
+        }),
+        processingElement
+      );
+    }
   };
   return (
     <ToolbarItem>
