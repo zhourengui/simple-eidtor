@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react";
-import "./style.scss";
 
 export interface FormItemProps {
   label: string;

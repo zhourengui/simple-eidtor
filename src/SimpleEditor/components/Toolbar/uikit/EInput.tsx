@@ -5,7 +5,6 @@ import {
   useImperativeHandle,
   useRef,
 } from "react";
-import "./style.scss";
 
 interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {

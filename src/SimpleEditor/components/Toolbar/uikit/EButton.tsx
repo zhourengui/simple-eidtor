@@ -1,5 +1,4 @@
 import { ReactElement } from "react";
-import "./style.scss";
 
 export interface BaseEButtonProps {
   children: string | ReactElement;

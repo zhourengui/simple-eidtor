@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ToolbarItem, Upload } from "../uikit";
-import { UploadFile } from "../uikit/Upload/Upload";
+import { UploadFile } from "../uikit/Upload";
 import { createHTMLElement, generateImage } from "../../../utils";
 import { ToolProps } from "./tool";
 
@@ -36,7 +36,7 @@ export const UploadTool: React.FC<ToolProps> = (props) => {
       }),
     });
 
-    selection?.insertNode(imagesParent);
+    selection?.insertNode(imagesParent, editorContent);
   };
 
   const onChange = (nextFile: UploadFile) => {

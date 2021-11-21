@@ -34,8 +34,9 @@ const SimpleEditor: React.FC<SimpleEditorProps> = (props) => {
   useEffect(() => {
     return () => {
       editorContent?.dispose();
+      selection?.dispose();
     };
-  }, [editorContent]);
+  }, [editorContent, selection]);
 
   return (
     <div className="simple-editor">

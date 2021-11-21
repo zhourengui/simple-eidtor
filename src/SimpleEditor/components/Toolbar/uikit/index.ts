@@ -1,10 +1,10 @@
-import Dropdown from "./Dropdown/Dropdown";
-import EInput from "./EInput/EInput";
-import ELabelItem from "./ELabelItem/ELabelItem";
-import ToolbarItem from "./ToolbarItem/ToolbarItem";
-import Transition from "./Transition/Transition";
-import EButton from "./EButton/EButton";
-import Upload from "./Upload/Upload";
+import Dropdown from "./Dropdown";
+import EInput from "./EInput";
+import ELabelItem from "./ELabelItem";
+import ToolbarItem from "./ToolbarItem";
+import Transition from "./Transition";
+import EButton from "./EButton";
+import Upload from "./Upload";
 
 export {
   Dropdown,

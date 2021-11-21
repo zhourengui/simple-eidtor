@@ -1,8 +1,7 @@
 import { ReactElement } from "react";
-import { EditorSelection } from "../../../../selection";
-import ToolbarItem from "../ToolbarItem/ToolbarItem";
-import Transition from "../Transition/Transition";
-import "./style.scss";
+import { Transition } from ".";
+import { EditorSelection } from "../../../selection";
+import ToolbarItem from "./ToolbarItem";
 
 export interface DropdownProps {
   isOpen: boolean;

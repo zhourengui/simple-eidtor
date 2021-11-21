@@ -1,6 +1,5 @@
 import { EditorSelection } from "../../selection";
 import { LinkTool, ClearTool, CaseTool, TableTool, UploadTool } from "./tool";
-import "./index.scss";
 import { EditorContent } from "../../editor-content";
 
 export interface ToolbarProps {

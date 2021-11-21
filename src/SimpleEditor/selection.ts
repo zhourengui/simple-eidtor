@@ -1,4 +1,5 @@
 import { debounceTime, fromEvent, Observable, Subject } from "rxjs";
+import { EditorContent } from "./editor-content";
 
 export type SelectionCallback = (selection: EditorSelection) => void;
 
@@ -31,8 +32,14 @@ export class EditorSelection {
     return this.getRangeAt()?.cloneContents();
   }
 
-  public insertNode(content: Node) {
-    this.getRangeAt()?.insertNode(content);
+  public insertNode(content: Node, editorContent?: EditorContent) {
+    // 没有聚焦富文本框的时候使用dom直接插入
+    const range = this.getRangeAt();
+    if (!range) {
+      editorContent?.getEditorBody()?.appendChild(content);
+    } else {
+      range?.insertNode(content);
+    }
   }
 
   public deleteContents() {
@@ -46,4 +53,6 @@ export class EditorSelection {
   public subscribe(callback: SelectionCallback) {
     this.selectionSubs.subscribe(() => callback(this));
   }
+
+  public dispose() {}
 }

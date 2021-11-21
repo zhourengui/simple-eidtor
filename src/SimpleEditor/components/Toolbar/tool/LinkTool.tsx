@@ -1,12 +1,11 @@
 import { useRef, useState } from "react";
-import Dropdown from "../uikit/Dropdown/Dropdown";
-import ELabelItem from "../uikit/ELabelItem/ELabelItem";
-import { EInput, EButton } from "../uikit";
+import ELabelItem from "../uikit/ELabelItem";
+import { EInput, EButton, Dropdown } from "../uikit";
 import { createHTMLElement, createTextNode } from "../../../utils";
 import { ToolProps } from "./tool";
 
 export const LinkTool: React.FC<ToolProps> = (props) => {
-  const { selection } = props;
+  const { selection, editorContent } = props;
   const linkRef = useRef<any>(null);
   const textRef = useRef<any>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -30,7 +29,7 @@ export const LinkTool: React.FC<ToolProps> = (props) => {
     });
     selection?.deleteContents();
     linkDom.appendChild(content ? content : createTextNode(text));
-    selection?.insertNode(linkDom);
+    selection?.insertNode(linkDom, editorContent);
     setIsOpen(false);
   };
   const isValidLink = (str: string) => {
