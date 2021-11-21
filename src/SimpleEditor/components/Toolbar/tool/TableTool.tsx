@@ -1,57 +1,80 @@
-import { useRef, useState } from "react";
+import { useState, MouseEvent } from "react";
 import { EditorSelection } from "../../../selection";
 import Dropdown from "../uikit/Dropdown/Dropdown";
 import ELabelItem from "../uikit/ELabelItem/ELabelItem";
 import { EInput, EButton } from "../uikit";
-import { createHTMLElement } from "../utils";
+import { createHTMLElement, isMobile } from "../../../utils";
+import { EditorContent } from "../../../editor-content";
 
 export interface TableToolPorps {
   selection?: EditorSelection;
+  editorContent?: EditorContent;
 }
 
 export const TableTool: React.FC<TableToolPorps> = (props) => {
-  const { selection } = props;
-  const linkRef = useRef<any>(null);
-  const textRef = useRef<any>(null);
+  const { selection, editorContent } = props;
+  const [tableRow, setTableRow] = useState(0);
+  const [tableColumn, setTableColumn] = useState(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isSelectedContent, setIsSelectedContent] = useState<boolean>();
-  const onConfirm = () => {
-    const link = linkRef?.current?.getValue();
-    const text = textRef?.current?.getValue();
-    const content = selection?.getContent();
-    if (!isValidLink(link)) {
-      return alert("请输入有效的链接");
-    }
-    if (!isSelectedContent && !text) {
-      return alert("请输入文字");
-    }
-    if (content) {
-      selection?.deleteContents();
-      const linkDom = createHTMLElement({
-        type: "a",
-        attrs: {
-          href: link,
-          // 设置之后不能被编辑，但是可以点击跳转
-          // contenteditable: false,
-          target: "_blank",
-        },
-      });
-      linkDom.appendChild(
-        isSelectedContent ? content : document.createTextNode(text)
-      );
-      selection?.insertNode(linkDom);
-    }
-    setIsOpen(false);
-  };
-  const isValidLink = (str: string) => {
-    return /^(?:(http|https|fcp):\/\/)?((?:[\w-]+\.)[a-z][\w-]+)(?:(\/[^/?#]*)+)?(\?[^#]+)?(#.+)?$/i.test(
-      str
-    );
-  };
+  const [isCanBeOver, setIsCanBeOver] = useState<boolean>(true);
+
   const onLabelClick = () => {
-    setIsSelectedContent(!!selection?.getContent()?.firstChild);
     setIsOpen(true);
   };
+
+  const onTableRowChange = (value: number) => setTableRow(value);
+  const onTableColumnChange = (value: number) => setTableColumn(value);
+
+  const onMouseOverTable = (ev: MouseEvent) => {
+    // @ts-ignore
+    const { row, column } = ev.target.dataset;
+    if (row && column && isCanBeOver) {
+      setTableRow(row);
+      setTableColumn(column);
+    }
+  };
+  const onTableClick = () => {
+    setIsCanBeOver(false);
+  };
+
+  const onMouseLeaveTable = () => {
+    setIsCanBeOver(true);
+  };
+
+  const onConfirm = () => {
+    const table = createHTMLElement({
+      type: "table",
+      attrs: {
+        "textbus-editable": "off",
+      },
+      classes: ["editor-table"],
+      children: [
+        createHTMLElement({
+          type: "tbody",
+          classes: ["editor-table-body"],
+          children: Array.from({ length: tableRow }).map(() =>
+            createHTMLElement({
+              type: "tr",
+              classes: ["editor-table-tr"],
+              children: Array.from({ length: tableColumn }).map(() =>
+                createHTMLElement({
+                  type: "td",
+                  attrs: {
+                    "textbus-editable": "on",
+                  },
+                  classes: ["editor-table-td"],
+                  children: [createHTMLElement({ type: "br" })],
+                })
+              ),
+            })
+          ),
+        }),
+      ],
+    });
+    editorContent?.getEditorBody().appendChild(table);
+    setIsOpen(false);
+  };
+
   return (
     <Dropdown
       isOpen={isOpen}
@@ -60,13 +83,46 @@ export const TableTool: React.FC<TableToolPorps> = (props) => {
       labelFactory={() => <span onClick={onLabelClick}>Table</span>}
       viewFactory={() => (
         <>
-          {isSelectedContent ? null : (
-            <ELabelItem label="文字">
-              <EInput placeholder="请输入文字" ref={textRef} />
-            </ELabelItem>
+          {isMobile() ? null : (
+            <div
+              className="e-table-grid"
+              onMouseOver={onMouseOverTable}
+              onClick={onTableClick}
+              onMouseLeave={onMouseLeaveTable}
+            >
+              {Array.from({ length: 100 }, (_, index) => index).map((index) => {
+                const row = Math.ceil((index + 1) / 10);
+                const column = (index % 10) + 1;
+                return (
+                  <div
+                    className={`e-table-grid-item ${
+                      row <= tableRow && column <= tableColumn
+                        ? "e-table-grid-item--active"
+                        : ""
+                    }`}
+                    key={`${row}-${column}`}
+                    data-row={row}
+                    data-column={column}
+                  />
+                );
+              })}
+            </div>
           )}
-          <ELabelItem label="跳转链接地址">
-            <EInput placeholder="请输入有效的链接" ref={linkRef} />
+          <ELabelItem label="表格行数">
+            <EInput
+              placeholder="请输入表格行数"
+              type="number"
+              value={tableRow}
+              onChange={onTableRowChange}
+            />
+          </ELabelItem>
+          <ELabelItem label="表格列数">
+            <EInput
+              placeholder="请输入表格列数"
+              type="number"
+              value={tableColumn}
+              onChange={onTableColumnChange}
+            />
           </ELabelItem>
           <div style={{ marginTop: 10 }}>
             <EButton onClick={onConfirm}>确定</EButton>

@@ -3,7 +3,7 @@ import { EditorSelection } from "../../../selection";
 import Dropdown from "../uikit/Dropdown/Dropdown";
 import ELabelItem from "../uikit/ELabelItem/ELabelItem";
 import { EInput, EButton } from "../uikit";
-import { createHTMLElement, createTextNode } from "../utils";
+import { createHTMLElement, createTextNode } from "../../../utils";
 import { EditorContent } from "../../../editor-content";
 
 export interface LinkToolPorps {
@@ -50,7 +50,6 @@ export const LinkTool: React.FC<LinkToolPorps> = (props) => {
     );
   };
   const onLabelClick = () => {
-    console.log(selection?.getContent());
     setIsSelectedContent(!!selection?.getContent()?.firstChild);
     setIsOpen(true);
   };

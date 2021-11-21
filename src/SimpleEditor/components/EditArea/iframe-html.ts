@@ -30,6 +30,20 @@ export const iframeHTML = `
     ::selection {
       background-color: rgba(18, 150, 219, .2);
     }
+
+    table {
+      width: 100%;
+      border-spacing: 0;
+      border-collapse: collapse;
+    }
+
+    table td {
+      border: 1px solid #aaa;
+    }
+
+    table td:focus-visible {
+      border-color: red
+    }
   </style>
 </head>
 <body contenteditable>

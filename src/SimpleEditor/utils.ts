@@ -2,6 +2,7 @@
 
 export interface HTMLElementOption {
   type: string;
+  classes?: string[];
   attrs?: { [key: string]: any };
   styles?: { [key: string]: any };
   props?: { [key: string]: any };
@@ -10,7 +11,7 @@ export interface HTMLElementOption {
 }
 
 export function createHTMLElement(options: HTMLElementOption): HTMLElement {
-  const { type, attrs, props, children, styles, onCreated } = options;
+  const { type, attrs, props, children, classes, styles, onCreated } = options;
   const el = document.createElement(type);
 
   if (attrs) {
@@ -25,8 +26,12 @@ export function createHTMLElement(options: HTMLElementOption): HTMLElement {
     );
   }
 
-  if (options.props) {
-    Object.keys(props).forEach((key) => (el[key] = options.props[key]));
+  if (classes) {
+    classes.forEach((key) => el.classList.add(key));
+  }
+
+  if (props) {
+    Object.keys(props).forEach((key) => (el[key] = props[key]));
   }
 
   if (children) {
@@ -60,4 +65,20 @@ export const generateImage = (url: string): Promise<HTMLImageElement> => {
       reject(err);
     };
   });
+};
+
+export const isMobile = () => {
+  const info = navigator.userAgent;
+  const agents = [
+    "Android",
+    "iPhone",
+    "SymbianOS",
+    "Windows Phone",
+    "iPod",
+    "iPad",
+  ];
+  for (let i = 0; i < agents.length; i++) {
+    if (info.indexOf(agents[i]) >= 0) return true;
+  }
+  return false;
 };

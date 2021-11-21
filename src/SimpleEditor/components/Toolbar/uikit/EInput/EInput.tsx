@@ -14,16 +14,12 @@ interface InputProps
 }
 
 const EInput: React.FC<InputProps> = forwardRef((props, ref) => {
-  const { defaultValue, placeholder, onChange } = props;
+  const { defaultValue, placeholder, onChange, ...rest } = props;
   const inputRef = useRef<HTMLInputElement>(null);
 
   useImperativeHandle(ref, () => ({
     getValue: () => inputRef?.current?.value,
   }));
-
-  const onInput = (event: ChangeEvent<HTMLInputElement>) => {
-    onChange?.(event.target.value);
-  };
 
   return (
     <input
@@ -31,7 +27,10 @@ const EInput: React.FC<InputProps> = forwardRef((props, ref) => {
       className="e-input"
       defaultValue={defaultValue}
       placeholder={placeholder}
-      onInput={onInput}
+      onChange={(event: ChangeEvent<HTMLInputElement>) =>
+        onChange?.(event.target.value)
+      }
+      {...rest}
     />
   );
 });

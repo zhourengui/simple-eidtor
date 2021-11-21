@@ -13,3 +13,24 @@
   flex-direction: column;
   border-radius: 5px;
 }
+
+.e-table-grid {
+  display: grid;
+  width: 100%;
+  height: 160px;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  border-right: 1px solid #bbbec4;
+  border-bottom: 1px solid #bbbec4;
+}
+
+.e-table-grid-item {
+  border-left: 1px solid #bbbec4;
+  border-top: 1px solid #bbbec4;
+
+  &--active {
+    border-left: 1px solid #1296db;
+    border-top: 1px solid #1296db;
+    background-color: rgba(18, 150, 219, 0.2);
+  }
+}

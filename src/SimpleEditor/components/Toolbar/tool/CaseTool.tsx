@@ -1,6 +1,6 @@
 import { EditorSelection } from "../../../selection";
 import { ToolbarItem } from "../uikit";
-import { createTextNode } from "../utils";
+import { createTextNode } from "../../../utils";
 
 export interface CaseToolProps {
   selection?: EditorSelection;

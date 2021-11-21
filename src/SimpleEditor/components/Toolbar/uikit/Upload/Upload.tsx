@@ -57,7 +57,7 @@ const Upload: React.FC<UploadProps> = (props) => {
 
   const fileInput = useRef<HTMLInputElement>(null);
 
-  const [files, setFiles] = useState<UploadFile[]>(defaultFileList || []);
+  const [, setFiles] = useState<UploadFile[]>(defaultFileList || []);
   const uploadCountRef = useRef(0);
 
   const updateFiles = (

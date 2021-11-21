@@ -3,7 +3,7 @@ import { EditorContent } from "../../../editor-content";
 import { EditorSelection } from "../../../selection";
 import { ToolbarItem, Upload } from "../uikit";
 import { UploadFile } from "../uikit/Upload/Upload";
-import { generateImage } from "../utils";
+import { generateImage } from "../../../utils";
 
 export interface UploadToolProps {
   selection?: EditorSelection;
@@ -11,7 +11,7 @@ export interface UploadToolProps {
 }
 
 export const UploadTool: React.FC<UploadToolProps> = (props) => {
-  const { selection, editorContent } = props;
+  const { editorContent } = props;
 
   const [uploading, setUploading] = useState(false);
   const [files, setFiles] = useState<UploadFile[]>([]);
@@ -34,6 +34,7 @@ export const UploadTool: React.FC<UploadToolProps> = (props) => {
       if (width > editorWidth) {
         image.style.width = "100%";
       }
+
       editorContent?.getEditorBody()?.appendChild(image);
     });
   };
