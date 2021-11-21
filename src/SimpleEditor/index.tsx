@@ -19,7 +19,12 @@ const SimpleEditor: React.FC<SimpleEditorProps> = (props) => {
   const onIframeMounted = useCallback(
     (contentDocument: Document) => {
       if (!selection) {
-        setSelection(new EditorSelection(contentDocument));
+        const nextSelection = new EditorSelection(contentDocument);
+        setSelection(nextSelection);
+        nextSelection.subscribe((selecion) => {
+          // 富文本光标变化时触发
+          console.log(selecion.getRangeAt());
+        });
         setEditorContent(new EditorContent(contentDocument));
       }
     },
