@@ -1,17 +1,11 @@
 import { useState } from "react";
-import { EditorContent } from "../../../editor-content";
-import { EditorSelection } from "../../../selection";
 import { ToolbarItem, Upload } from "../uikit";
 import { UploadFile } from "../uikit/Upload/Upload";
-import { generateImage } from "../../../utils";
+import { createHTMLElement, generateImage } from "../../../utils";
+import { ToolProps } from "./tool";
 
-export interface UploadToolProps {
-  selection?: EditorSelection;
-  editorContent?: EditorContent;
-}
-
-export const UploadTool: React.FC<UploadToolProps> = (props) => {
-  const { editorContent } = props;
+export const UploadTool: React.FC<ToolProps> = (props) => {
+  const { selection, editorContent } = props;
 
   const [uploading, setUploading] = useState(false);
   const [files, setFiles] = useState<UploadFile[]>([]);
@@ -23,20 +17,26 @@ export const UploadTool: React.FC<UploadToolProps> = (props) => {
 
   const onCompelete = async (files: UploadFile[]) => {
     setUploading(false);
+
     const images = await Promise.all(
       files
         .filter((file) => file.status === "success")
         .map((file) => generateImage(file.response))
     );
-    images.forEach((image) => {
-      const width = image.width;
-      const editorWidth = editorContent?.getEditorWidth() || 0;
-      if (width > editorWidth) {
-        image.style.width = "100%";
-      }
 
-      editorContent?.getEditorBody()?.appendChild(image);
+    const imagesParent = createHTMLElement({
+      type: "div",
+      children: images.map((image) => {
+        const width = image.width;
+        const editorWidth = editorContent?.getEditorWidth() || 0;
+        if (width > editorWidth) {
+          image.style.width = "100%";
+        }
+        return image;
+      }),
     });
+
+    selection?.insertNode(imagesParent);
   };
 
   const onChange = (nextFile: UploadFile) => {

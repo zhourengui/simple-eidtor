@@ -1,18 +1,12 @@
 import { useRef, useState } from "react";
-import { EditorSelection } from "../../../selection";
 import Dropdown from "../uikit/Dropdown/Dropdown";
 import ELabelItem from "../uikit/ELabelItem/ELabelItem";
 import { EInput, EButton } from "../uikit";
 import { createHTMLElement, createTextNode } from "../../../utils";
-import { EditorContent } from "../../../editor-content";
+import { ToolProps } from "./tool";
 
-export interface LinkToolPorps {
-  selection?: EditorSelection;
-  editorContent?: EditorContent;
-}
-
-export const LinkTool: React.FC<LinkToolPorps> = (props) => {
-  const { selection, editorContent } = props;
+export const LinkTool: React.FC<ToolProps> = (props) => {
+  const { selection } = props;
   const linkRef = useRef<any>(null);
   const textRef = useRef<any>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -34,14 +28,9 @@ export const LinkTool: React.FC<LinkToolPorps> = (props) => {
         target: "_blank",
       },
     });
-    if (content) {
-      selection?.deleteContents();
-      linkDom.appendChild(content);
-      selection?.insertNode(linkDom);
-    } else {
-      linkDom.appendChild(createTextNode(text));
-      editorContent?.getEditorBody()?.appendChild(linkDom);
-    }
+    selection?.deleteContents();
+    linkDom.appendChild(content ? content : createTextNode(text));
+    selection?.insertNode(linkDom);
     setIsOpen(false);
   };
   const isValidLink = (str: string) => {

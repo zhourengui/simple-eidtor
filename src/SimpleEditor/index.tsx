@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import EditArea from "./components/EditArea";
 import Toolbar from "./components/Toolbar";
 import { EditorContent } from "./editor-content";
@@ -25,6 +25,12 @@ const SimpleEditor: React.FC<SimpleEditorProps> = (props) => {
     },
     [selection]
   );
+
+  useEffect(() => {
+    return () => {
+      editorContent?.dispose();
+    };
+  }, [editorContent]);
 
   return (
     <div className="simple-editor">

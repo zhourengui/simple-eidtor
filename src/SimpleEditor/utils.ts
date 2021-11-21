@@ -39,7 +39,9 @@ export function createHTMLElement(options: HTMLElementOption): HTMLElement {
       .filter((c) => c)
       .forEach((c) =>
         el.appendChild(
-          c instanceof Node ? el.appendChild(c) : createTextNode(c)
+          c instanceof Node
+            ? el.appendChild(c)
+            : createTextNode(typeof c === "object" ? c.data : c)
         )
       );
   }
@@ -81,4 +83,25 @@ export const isMobile = () => {
     if (info.indexOf(agents[i]) >= 0) return true;
   }
   return false;
+};
+
+export const getAllTextNodeFromElement = (
+  node: ParentNode | null
+): string[] => {
+  const textNodes = [];
+  const rec = (node: Node) => {
+    if (node) {
+      const childNodes = node.childNodes;
+      childNodes.forEach((childNode) => {
+        const nodeType = childNode.nodeType;
+        if (nodeType === 3) {
+          textNodes.push(childNode.data);
+        } else if (nodeType === 1) {
+          rec(childNode);
+        }
+      });
+    }
+  };
+  rec(node);
+  return textNodes;
 };

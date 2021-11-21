@@ -1,12 +1,8 @@
 import { useState } from "react";
+import { ToolProps } from "../SimpleEditor/components/Toolbar/tool/tool";
 import { Dropdown } from "../SimpleEditor/components/Toolbar/uikit";
-import { EditorSelection } from "../SimpleEditor/selection";
 
-export interface TextSizeProps {
-  selection?: EditorSelection;
-}
-
-export const TextSize: React.FC<TextSizeProps> = (props) => {
+export const TextSize: React.FC<ToolProps> = (props) => {
   const { selection } = props;
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (

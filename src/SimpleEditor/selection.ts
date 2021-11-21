@@ -39,6 +39,10 @@ export class EditorSelection {
     this.getRangeAt()?.deleteContents();
   }
 
+  public getCommonAncestorContainer() {
+    return this.getRangeAt()?.commonAncestorContainer;
+  }
+
   public subscribe(callback: SelectionCallback) {
     this.selectionSubs.subscribe(() => callback(this));
   }

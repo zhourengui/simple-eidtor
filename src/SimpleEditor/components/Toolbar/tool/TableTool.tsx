@@ -1,18 +1,12 @@
 import { useState, MouseEvent } from "react";
-import { EditorSelection } from "../../../selection";
 import Dropdown from "../uikit/Dropdown/Dropdown";
 import ELabelItem from "../uikit/ELabelItem/ELabelItem";
 import { EInput, EButton } from "../uikit";
 import { createHTMLElement, isMobile } from "../../../utils";
-import { EditorContent } from "../../../editor-content";
+import { ToolProps } from "./tool";
 
-export interface TableToolPorps {
-  selection?: EditorSelection;
-  editorContent?: EditorContent;
-}
-
-export const TableTool: React.FC<TableToolPorps> = (props) => {
-  const { selection, editorContent } = props;
+export const TableTool: React.FC<ToolProps> = (props) => {
+  const { selection } = props;
   const [tableRow, setTableRow] = useState(0);
   const [tableColumn, setTableColumn] = useState(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -71,7 +65,8 @@ export const TableTool: React.FC<TableToolPorps> = (props) => {
         }),
       ],
     });
-    editorContent?.getEditorBody().appendChild(table);
+    selection?.insertNode(table);
+    // editorContent?.getEditorBody().appendChild(table);
     setIsOpen(false);
   };
 

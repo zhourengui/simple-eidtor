@@ -1,12 +1,8 @@
-import { EditorSelection } from "../../../selection";
 import { ToolbarItem } from "../uikit";
 import { createTextNode } from "../../../utils";
+import { ToolProps } from "./tool";
 
-export interface CaseToolProps {
-  selection?: EditorSelection;
-}
-
-export const CaseTool: React.FC<CaseToolProps> = (props) => {
+export const CaseTool: React.FC<ToolProps> = (props) => {
   const { selection } = props;
   const onClick = () => {
     let content = selection?.getRangeAt()?.toString();

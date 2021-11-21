@@ -5,7 +5,10 @@ function App() {
   return (
     <div>
       <h1>Rich Text Editor</h1>
-      <SimpleEditor content="<strong>默认文本</strong>" expands={[TextSize]} />
+      <SimpleEditor
+        content="默认文本<font>默认文本</font>"
+        expands={[TextSize]}
+      />
     </div>
   );
 }

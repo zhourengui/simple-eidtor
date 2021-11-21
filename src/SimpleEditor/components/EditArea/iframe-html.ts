@@ -47,7 +47,9 @@ export const iframeHTML = `
   </style>
 </head>
 <body contenteditable>
-  <!-- Inject Default Content -->
+  <div>
+    <!-- Inject Default Content -->
+  </div>
 </body>
 </html>
 `
