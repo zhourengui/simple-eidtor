@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 import EditArea from "./components/EditArea";
 import Toolbar from "./components/Toolbar";
+import { EditorContent } from "./editor-content";
 import { EditorSelection } from "./selection";
-import { Observable, Subject } from "rxjs";
 import "./styles/index.scss";
 
 export interface SimpleEditorProps {
@@ -14,12 +14,13 @@ const SimpleEditor: React.FC<SimpleEditorProps> = (props) => {
   const { content, expands } = props;
 
   const [selection, setSelection] = useState<EditorSelection>();
+  const [editorContent, setEditorContent] = useState<EditorContent>();
 
   const onIframeMounted = useCallback(
     (contentDocument: Document) => {
       if (!selection) {
-        const nextSelection = new EditorSelection(contentDocument);
-        setSelection(nextSelection);
+        setSelection(new EditorSelection(contentDocument));
+        setEditorContent(new EditorContent(contentDocument));
       }
     },
     [selection]
@@ -27,7 +28,11 @@ const SimpleEditor: React.FC<SimpleEditorProps> = (props) => {
 
   return (
     <div className="simple-editor">
-      <Toolbar selection={selection} expands={expands} />
+      <Toolbar
+        selection={selection}
+        editorContent={editorContent}
+        expands={expands}
+      />
       <EditArea content={content} onIframeMounted={onIframeMounted} />
     </div>
   );

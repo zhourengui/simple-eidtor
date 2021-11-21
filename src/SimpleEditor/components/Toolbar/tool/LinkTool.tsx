@@ -4,13 +4,15 @@ import Dropdown from "../uikit/Dropdown/Dropdown";
 import ELabelItem from "../uikit/ELabelItem/ELabelItem";
 import { EInput, EButton } from "../uikit";
 import { createHTMLElement, createTextNode } from "../utils";
+import { EditorContent } from "../../../editor-content";
 
 export interface LinkToolPorps {
   selection?: EditorSelection;
+  editorContent?: EditorContent;
 }
 
 export const LinkTool: React.FC<LinkToolPorps> = (props) => {
-  const { selection } = props;
+  const { selection, editorContent } = props;
   const linkRef = useRef<any>(null);
   const textRef = useRef<any>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -18,26 +20,27 @@ export const LinkTool: React.FC<LinkToolPorps> = (props) => {
   const onConfirm = () => {
     const link = linkRef?.current?.getValue();
     const text = textRef?.current?.getValue();
-    const content = selection?.getContent();
+    const content = selection?.getContent()?.firstChild as Node;
     if (!isValidLink(link)) {
       return alert("请输入有效的链接");
     }
     if (!isSelectedContent && !text) {
       return alert("请输入文字");
     }
+    const linkDom = createHTMLElement({
+      type: "a",
+      attrs: {
+        href: link,
+        target: "_blank",
+      },
+    });
     if (content) {
       selection?.deleteContents();
-      const linkDom = createHTMLElement({
-        type: "a",
-        attrs: {
-          href: link,
-          // 设置之后不能被编辑，但是可以点击跳转
-          // contenteditable: false,
-          target: "_blank",
-        },
-      });
-      linkDom.appendChild(isSelectedContent ? content : createTextNode(text));
+      linkDom.appendChild(content);
       selection?.insertNode(linkDom);
+    } else {
+      linkDom.appendChild(createTextNode(text));
+      editorContent?.getEditorBody()?.appendChild(linkDom);
     }
     setIsOpen(false);
   };
@@ -46,7 +49,8 @@ export const LinkTool: React.FC<LinkToolPorps> = (props) => {
       str
     );
   };
-  const onToolbarClick = () => {
+  const onLabelClick = () => {
+    console.log(selection?.getContent());
     setIsSelectedContent(!!selection?.getContent()?.firstChild);
     setIsOpen(true);
   };
@@ -55,8 +59,7 @@ export const LinkTool: React.FC<LinkToolPorps> = (props) => {
       isOpen={isOpen}
       setIsOpen={setIsOpen}
       selection={selection}
-      onToolbarClick={onToolbarClick}
-      labelFactory={() => <span>Link</span>}
+      labelFactory={() => <span onClick={onLabelClick}>Link</span>}
       viewFactory={() => (
         <>
           {isSelectedContent ? null : (

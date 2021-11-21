@@ -8,7 +8,6 @@ export interface DropdownProps {
   isOpen: boolean;
   duration?: number;
   selection?: EditorSelection;
-  onToolbarClick?(): void;
   setIsOpen(value: boolean): void;
   labelFactory: (selection?: EditorSelection) => ReactElement;
   viewFactory: (selection?: EditorSelection) => ReactElement;
@@ -19,7 +18,6 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
     selection,
     duration = 300,
     isOpen,
-    onToolbarClick,
     setIsOpen,
     labelFactory,
     viewFactory,
@@ -31,7 +29,7 @@ const Dropdown: React.FC<DropdownProps> = (props) => {
 
   return (
     <>
-      <ToolbarItem onClick={onToolbarClick}>
+      <ToolbarItem>
         <div className="dropdown">
           <div className="dropdown-label">{labelFactory(selection)}</div>
           <Transition animation="zoom-in-top" timeout={duration} in={isOpen}>

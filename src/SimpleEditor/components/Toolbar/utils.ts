@@ -49,3 +49,15 @@ export function createHTMLElement(options: HTMLElementOption): HTMLElement {
 export const createTextNode = (text: string) => {
   return document.createTextNode(text);
 };
+export const generateImage = (url: string): Promise<HTMLImageElement> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.src = url;
+    img.onload = function () {
+      resolve(img);
+    };
+    img.onerror = function (err) {
+      reject(err);
+    };
+  });
+};

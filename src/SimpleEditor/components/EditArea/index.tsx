@@ -1,4 +1,5 @@
-import { useEffect, useRef, memo } from "react";
+// TODO: 优化
+import { useRef, memo, useLayoutEffect } from "react";
 import { fromEvent } from "rxjs";
 import { iframeScript } from "./iframe-script";
 import "./index.scss";
@@ -12,7 +13,10 @@ const EditArea = (props: EditAreaProps) => {
   const { content, onIframeMounted } = props;
   const iframeRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (iframeRef?.current?.firstChild) {
+      iframeRef.current?.firstChild.remove();
+    }
     const iframe = document.createElement("iframe");
     iframe.src = iframeScript(content);
     iframe.style.width = "100%";
