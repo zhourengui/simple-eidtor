@@ -17,7 +17,8 @@ export const LinkTool: React.FC<ToolProps> = (props) => {
   const onConfirm = () => {
     const link = linkRef?.current?.getValue();
     const text = textRef?.current?.getValue();
-    const content = selection?.getContent()?.firstChild as Node;
+    const content = selection?.getContent();
+
     if (!isValidLink(link)) {
       return alert("请输入有效的链接");
     }

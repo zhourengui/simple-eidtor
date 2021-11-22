@@ -97,7 +97,7 @@
 }
 
 .toolbar {
-  height: 40px;
   display: flex;
+  flex-wrap: wrap;
   background: rgba(0, 0, 0, 0.1);
 }
