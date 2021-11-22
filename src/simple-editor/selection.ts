@@ -20,7 +20,7 @@ export class EditorSelection {
   }
   public getRangeAt(index: number = 0) {
     if (this.selection && this.selection.rangeCount > 0) {
-      return this.selection.getRangeAt(index).cloneRange();
+      return this.selection.getRangeAt(index);
     }
   }
 

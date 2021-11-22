@@ -9,19 +9,15 @@ export interface BaseToolFactoryProps extends ToolProps {
 }
 
 export const BaseToolFactory: React.FC<BaseToolFactoryProps> = (props) => {
-  const { label, elementTag, selection, editorContent } = props;
+  const { label, elementTag, selection } = props;
   const onClick = () => {
-    const processingElement: ParentNode | null =
-      selection?.getCommonAncestorContainer() as ParentNode;
-    const content = selection?.getContent()?.firstChild;
-
-    if (processingElement === editorContent?.getEditorBody()) return;
+    const content = selection?.getContent();
 
     if (content) {
       selection?.deleteContents();
-      selection?.insertNode(
-        createHTMLElement({ type: elementTag, children: [content] })
-      );
+      const newNode = createHTMLElement({ type: elementTag });
+      newNode.appendChild(content);
+      selection?.insertNode(newNode);
     }
   };
   return <ToolbarItem onClick={onClick}>{label}</ToolbarItem>;

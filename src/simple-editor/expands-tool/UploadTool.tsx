@@ -54,7 +54,7 @@ export const UploadTool: React.FC<ToolProps> = (props) => {
     <ToolbarItem>
       <>
         <Upload
-          action="http://localhost:5555/upload-single-file"
+          action="http://106.12.49.47:5555/upload-single-file"
           multiple
           accept="image/*"
           onFileChange={onFileChange}
