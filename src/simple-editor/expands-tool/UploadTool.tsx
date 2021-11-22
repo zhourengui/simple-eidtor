@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ToolbarItem, Upload } from "../components/toolbar/uikit";
-import { createHTMLElement } from "../utils";
+import { createHTMLElement, generateImage } from "../utils";
 import { ToolProps } from "../components/toolbar/tool/tool";
 import { UploadFile } from "../components/toolbar/uikit/Upload";
 
@@ -26,6 +26,9 @@ export const UploadTool: React.FC<ToolProps> = (props) => {
             type: "img",
             attrs: {
               src: file.response,
+            },
+            styles: {
+              "max-width": "100%",
             },
           })
         ),
