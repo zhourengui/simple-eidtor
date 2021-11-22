@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ToolbarItem, Upload } from "../components/toolbar/uikit";
-import { createHTMLElement, generateImage } from "../utils";
+import { createHTMLElement } from "../utils";
 import { ToolProps } from "../components/toolbar/tool/tool";
 import { UploadFile } from "../components/toolbar/uikit/Upload";
 
@@ -17,23 +17,18 @@ export const UploadTool: React.FC<ToolProps> = (props) => {
 
   const onCompelete = async (files: UploadFile[]) => {
     setUploading(false);
-
-    const images = await Promise.all(
-      files
-        .filter((file) => file.status === "success")
-        .map((file) => generateImage(file.response))
-    );
-
     const imagesParent = createHTMLElement({
       type: "div",
-      children: images.map((image) => {
-        const width = image.width;
-        const editorWidth = editorContent?.getEditorWidth() || 0;
-        if (width > editorWidth) {
-          image.style.width = "100%";
-        }
-        return image;
-      }),
+      children: files
+        .filter((file) => file.status === "success")
+        .map((file) =>
+          createHTMLElement({
+            type: "img",
+            attrs: {
+              src: file.response,
+            },
+          })
+        ),
     });
 
     selection?.insertNode(imagesParent, editorContent);
