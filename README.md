@@ -9,7 +9,6 @@ $ yarn start
 
 因为上传功能需要服务，在 5555 端口开启了 node 服务器
 
-## TODO
+## TODO:
 
-1. 优化 IEditArea 的 Iframe
-2. word 复制
+1. 当聚焦在链接的地方时，需要一个弹窗辅助点击打开链接

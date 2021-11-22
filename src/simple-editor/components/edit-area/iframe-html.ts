@@ -33,16 +33,12 @@ export const iframeHTML = `
 
     table {
       width: 100%;
-      border-spacing: 0;
-      border-collapse: collapse;
+      border-spacing: 0;;
+      border-collapse: collapse;;
     }
 
     table td {
-      border: 1px solid #aaa;
-    }
-
-    table td:focus-visible {
-      border-color: red
+      border: 1px solid #aaa;;
     }
   </style>
 </head>
