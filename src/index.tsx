@@ -9,10 +9,15 @@ import {
   UploadTool,
 } from "./simple-editor/expands-tool";
 
+const onChange = (content: string | undefined) => {
+  console.log("<<文档变化>>", content);
+};
+
 ReactDOM.render(
   <div>
     <h1>Rich Text Editor</h1>
     <SimpleEditor
+      onChange={onChange}
       content="默认文本"
       expands={[CaseTool, LinkTool, ClearTool, TableTool, UploadTool]}
     />

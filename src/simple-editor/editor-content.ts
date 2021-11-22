@@ -25,10 +25,11 @@ export class EditorContent {
       this.contentSubject.next({ mutationsList, observer });
     });
 
-    this.observer.observe(this.editorBody, {
+    this.observer.observe(contentDocument, {
       attributes: true,
       childList: true,
       subtree: true,
+      characterData: true,
     });
   }
 
