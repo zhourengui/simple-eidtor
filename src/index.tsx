@@ -13,7 +13,7 @@ ReactDOM.render(
   <div>
     <h1>Rich Text Editor</h1>
     <SimpleEditor
-      content=""
+      content="默认文本"
       expands={[CaseTool, LinkTool, ClearTool, TableTool, UploadTool]}
     />
   </div>,

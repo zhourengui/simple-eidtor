@@ -13,3 +13,8 @@ export enum NodeName {
   DIV = "DIV",
   U = "U",
 }
+
+export enum NodeType {
+  TEXT = 3,
+  Element = 1,
+}

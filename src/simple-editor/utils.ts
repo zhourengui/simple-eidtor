@@ -1,3 +1,5 @@
+import { NodeType } from "./constant";
+
 export interface HTMLElementOption {
   type: string;
   classes?: string[];
@@ -86,10 +88,9 @@ export const getAllTextNodeFromElement = (node: ParentNode | null) => {
       const childNodes = node.childNodes;
       childNodes.forEach((childNode) => {
         const nodeType = childNode.nodeType;
-        if (nodeType === 3) {
-          // @ts-ignore
-          textNodes.push(childNode.data);
-        } else if (nodeType === 1) {
+        if (nodeType === NodeType.TEXT) {
+          textNodes.push(childNode.nodeValue as string);
+        } else if (nodeType === NodeType.Element) {
           rec(childNode);
         }
       });
@@ -97,4 +98,22 @@ export const getAllTextNodeFromElement = (node: ParentNode | null) => {
   };
   rec(node);
   return textNodes;
+};
+
+export const setAllTextNodeFromElement = (
+  node: ParentNode,
+  handler: (text: string) => string
+) => {
+  const rec = (node: ParentNode | ChildNode) => {
+    node.childNodes.forEach((childNode) => {
+      const nodeType = childNode.nodeType;
+      if (nodeType === NodeType.TEXT) {
+        childNode.nodeValue = handler(childNode.nodeValue as string);
+      } else if (nodeType === NodeType.Element) {
+        rec(childNode);
+      }
+    });
+  };
+  rec(node);
+  return node;
 };
