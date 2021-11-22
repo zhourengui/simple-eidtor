@@ -1,6 +1,6 @@
 import { iframeHTML } from "./iframe-html";
 
-export const iframeScript = (content?: string) => {
+export const iframeScript = (content: string = "") => {
   return `javascript:void(
     (function () {
       document.open();
@@ -9,7 +9,7 @@ export const iframeScript = (content?: string) => {
       }
       document.write('${iframeHTML.replace(
         "<!-- Inject Default Content -->",
-        content || ""
+        content
       )}');
       document.close();
       window.parent.postMessage('complete','${

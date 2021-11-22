@@ -1,6 +1,6 @@
 import { ToolProps } from "../components/toolbar/tool/tool";
 import { ToolbarItem } from "../components/toolbar/uikit";
-import { NodeName } from "../constant";
+import { NodeName, NodeType } from "../constant";
 import { createHTMLElement, getAllTextNodeFromElement } from "../utils";
 
 export const ClearTool: React.FC<ToolProps> = (props) => {
@@ -24,7 +24,7 @@ export const ClearTool: React.FC<ToolProps> = (props) => {
       NodeName.U,
       NodeName.STRONG,
     ];
-    if (nodeType === 3) {
+    if (nodeType === NodeType.TEXT) {
       processingElement = processingElement?.parentNode;
     }
 
