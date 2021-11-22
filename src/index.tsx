@@ -14,14 +14,11 @@ const onChange = (content: string | undefined) => {
 };
 
 ReactDOM.render(
-  <div>
-    <h1>Rich Text Editor</h1>
-    <SimpleEditor
-      onChange={onChange}
-      content="默认文本"
-      expands={[CaseTool, LinkTool, ClearTool, TableTool, UploadTool]}
-    />
-  </div>,
+  <SimpleEditor
+    onChange={onChange}
+    content="默认文本"
+    expands={[CaseTool, LinkTool, ClearTool, TableTool, UploadTool]}
+  />,
   document.getElementById("root")
 );
 
