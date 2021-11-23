@@ -40,6 +40,7 @@
   display: flex;
   overflow: hidden;
   position: relative;
+  padding-top: 12px;
 }
 
 .dropdown {
@@ -99,5 +100,9 @@
     padding: 4px 8px;
     height: 100%;
     cursor: pointer;
-  }  
+  }
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
