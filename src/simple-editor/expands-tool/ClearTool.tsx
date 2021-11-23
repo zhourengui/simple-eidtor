@@ -7,10 +7,10 @@ export const ClearTool: React.FC<ToolProps> = (props) => {
   const { selection, editorContent } = props;
 
   const onLabelClick = () => {
-    let processingElement: ParentNode | null =
+    let processingElement: ParentNode | HTMLElement | null =
       selection?.getCommonAncestorContainer() as ParentNode;
     let nodeType = processingElement?.nodeType;
-    let clearNodeName = [
+    let clearListNodeName = [
       NodeName.FONT,
       NodeName.A,
       NodeName.H1,
@@ -24,25 +24,39 @@ export const ClearTool: React.FC<ToolProps> = (props) => {
       NodeName.U,
       NodeName.STRONG,
     ];
+    let whiteListNodeName = [
+      NodeName.TABLE,
+      NodeName.IMAGE,
+      NodeName.TBODY,
+      NodeName.TD,
+      NodeName.TH,
+      NodeName.THEAD,
+      NodeName.TR,
+    ];
     if (nodeType === NodeType.TEXT) {
       processingElement = processingElement?.parentNode;
     }
 
     if (processingElement === editorContent?.getEditorBody()) return;
 
+    // 当节点是table、img时不格式化
+    if (whiteListNodeName.includes(processingElement?.nodeName as NodeName))
+      return;
+
+    // 找到非clearNodeName的父元素为止
     while (true) {
-      const parentElement = processingElement?.parentElement as ParentNode;
-      if (clearNodeName.includes(parentElement?.nodeName as NodeName)) {
+      const parentElement = processingElement?.parentElement as HTMLElement;
+      if (clearListNodeName.includes(parentElement?.nodeName as NodeName)) {
         processingElement = parentElement;
         continue;
       }
       break;
     }
-
+    // 获取到上一步获取到的元素下的所有文本节点，替换成<font>文本</font>
     const textNodes = getAllTextNodeFromElement(processingElement);
     processingElement?.replaceChildren(...textNodes);
 
-    if (clearNodeName.includes(processingElement?.nodeName as NodeName)) {
+    if (clearListNodeName.includes(processingElement?.nodeName as NodeName)) {
       processingElement?.parentElement?.replaceChild(
         createHTMLElement({
           type: "font",

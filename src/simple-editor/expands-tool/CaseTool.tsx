@@ -17,8 +17,8 @@ export const CaseTool: React.FC<ToolProps> = (props) => {
     }
   };
   return (
-    <ToolbarItem onClick={onClick}>
-      <span>Aa</span>
+    <ToolbarItem>
+      <span onClick={onClick}>Aa</span>
     </ToolbarItem>
   );
 };

@@ -33,7 +33,9 @@ export const LinkTool: React.FC<ToolProps> = (props) => {
       },
     });
     selection?.deleteContents();
-    linkDom.appendChild(content ? content : createTextNode(text));
+    linkDom.appendChild(
+      isSelectedContent ? (content as Node) : createTextNode(text)
+    );
     selection?.insertNode(linkDom, editorContent);
     setIsOpen(false);
   };

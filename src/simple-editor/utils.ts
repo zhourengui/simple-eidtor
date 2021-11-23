@@ -52,6 +52,7 @@ export function createHTMLElement(options: HTMLElementOption): HTMLElement {
 export const createTextNode = (text: string) => {
   return document.createTextNode(text);
 };
+
 export const generateImage = (url: string): Promise<HTMLImageElement> => {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -81,6 +82,11 @@ export const isMobile = () => {
   return false;
 };
 
+/**
+ * 获取某个元素下的所有文本节点
+ * @param {ParentNode | null} node
+ * @returns {string[]}
+ */
 export const getAllTextNodeFromElement = (node: ParentNode | null) => {
   const textNodes: string[] = [];
   const rec = (node: ParentNode | ChildNode | null) => {
@@ -100,6 +106,12 @@ export const getAllTextNodeFromElement = (node: ParentNode | null) => {
   return textNodes;
 };
 
+/**
+ * 操作某个元素下的所有文本节点
+ * @param {ParentNode} node
+ * @param {(text: string) => void} handler
+ * @returns {ParentNode}
+ */
 export const setAllTextNodeFromElement = (
   node: ParentNode,
   handler: (text: string) => string

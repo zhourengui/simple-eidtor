@@ -39,37 +39,39 @@ export const TableTool: React.FC<ToolProps> = (props) => {
   };
 
   const onConfirm = () => {
-    const table = createHTMLElement({
-      type: "table",
-      attrs: {
-        "textbus-editable": "off",
-      },
-      classes: ["editor-table"],
-      children: [
-        createHTMLElement({
-          type: "tbody",
-          classes: ["editor-table-body"],
-          children: Array.from({ length: tableRow }).map(() =>
-            createHTMLElement({
-              type: "tr",
-              classes: ["editor-table-tr"],
-              children: Array.from({ length: tableColumn }).map(() =>
-                createHTMLElement({
-                  type: "td",
-                  attrs: {
-                    "textbus-editable": "on",
-                  },
-                  classes: ["editor-table-td"],
-                  children: [createHTMLElement({ type: "br" })],
-                })
-              ),
-            })
-          ),
-        }),
-      ],
-    });
-    selection?.insertNode(table, editorContent);
-    setIsOpen(false);
+    if (tableRow > 0 && tableColumn > 0) {
+      const table = createHTMLElement({
+        type: "table",
+        attrs: {
+          "textbus-editable": "off",
+        },
+        classes: ["editor-table"],
+        children: [
+          createHTMLElement({
+            type: "tbody",
+            classes: ["editor-table-body"],
+            children: Array.from({ length: tableRow }).map(() =>
+              createHTMLElement({
+                type: "tr",
+                classes: ["editor-table-tr"],
+                children: Array.from({ length: tableColumn }).map(() =>
+                  createHTMLElement({
+                    type: "td",
+                    attrs: {
+                      "textbus-editable": "on",
+                    },
+                    classes: ["editor-table-td"],
+                    children: [createHTMLElement({ type: "br" })],
+                  })
+                ),
+              })
+            ),
+          }),
+        ],
+      });
+      selection?.insertNode(table, editorContent);
+      setIsOpen(false);
+    }
   };
 
   return (

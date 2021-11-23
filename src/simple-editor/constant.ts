@@ -12,9 +12,19 @@ export enum NodeName {
   EM = "EM",
   DIV = "DIV",
   U = "U",
+  TABLE = "TABLE",
+  IMAGE = "IMAGE",
+  TBODY = "TBODY",
+  TD = "TD",
+  TH = "TH",
+  TR = "TR",
+  THEAD = "THEAD",
 }
 
 export enum NodeType {
-  TEXT = 3,
   Element = 1,
+  ATTR = 2,
+  TEXT = 3,
+  COMMENT = 8,
+  DOCUMENT = 9,
 }
