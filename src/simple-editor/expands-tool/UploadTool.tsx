@@ -72,6 +72,7 @@ export const UploadTool: React.FC<ToolProps> = (props) => {
               background: "rgba(0, 0, 0, .3)",
               padding: "10px",
               color: "green",
+              zIndex: 100
             }}
           >
             <p>total: {files.length}</p>
