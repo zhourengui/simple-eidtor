@@ -12,8 +12,8 @@ export const LinkTool: React.FC<ToolProps> = (props) => {
   const { selection, editorContent } = props;
   const linkRef = useRef<any>(null);
   const textRef = useRef<any>(null);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isSelectedContent, setIsSelectedContent] = useState<boolean>();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isSelectedContent, setIsSelectedContent] = useState(false);
   const onConfirm = () => {
     const link = linkRef?.current?.getValue();
     const text = textRef?.current?.getValue();

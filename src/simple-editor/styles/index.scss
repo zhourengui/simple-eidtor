@@ -86,18 +86,17 @@
   margin-bottom: 4px;
 }
 
-.toolbar-item {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 4px 8px;
-  height: 100%;
-  cursor: pointer;
-}
-
 .toolbar {
   display: flex;
   flex-wrap: wrap;
   background: rgba(0, 0, 0, 0.1);
+  &-item {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 8px;
+    height: 100%;
+    cursor: pointer;
+  }  
 }

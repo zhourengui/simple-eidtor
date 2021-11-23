@@ -12,8 +12,8 @@ export const TableTool: React.FC<ToolProps> = (props) => {
   const { selection, editorContent } = props;
   const [tableRow, setTableRow] = useState(0);
   const [tableColumn, setTableColumn] = useState(0);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isCanBeOver, setIsCanBeOver] = useState<boolean>(true);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isCanBeOver, setIsCanBeOver] = useState(true);
 
   const onLabelClick = () => {
     setIsOpen(true);
