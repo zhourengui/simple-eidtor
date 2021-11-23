@@ -5,7 +5,7 @@ import {
   Dropdown,
   ELabelItem,
 } from "../components/toolbar/uikit";
-import { createHTMLElement, createTextNode } from "../utils";
+import { createHTMLElement, createTextNode, isValidLink } from "../utils";
 import { ToolProps } from "../components/toolbar/tool/tool";
 
 export const LinkTool: React.FC<ToolProps> = (props) => {
@@ -39,11 +39,7 @@ export const LinkTool: React.FC<ToolProps> = (props) => {
     selection?.insertNode(linkDom, editorContent);
     setIsOpen(false);
   };
-  const isValidLink = (str: string) => {
-    return /^(?:(http|https|fcp):\/\/)?((?:[\w-]+\.)[a-z][\w-]+)(?:(\/[^/?#]*)+)?(\?[^#]+)?(#.+)?$/i.test(
-      str
-    );
-  };
+ 
   const onLabelClick = () => {
     setIsSelectedContent(!!selection?.getContent()?.firstChild);
     setIsOpen(true);

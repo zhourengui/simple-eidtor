@@ -129,3 +129,9 @@ export const setAllTextNodeFromElement = (
   rec(node);
   return node;
 };
+
+export const isValidLink = (str: string) => {
+  return /^(?:(http|https|fcp):\/\/)?((?:[\w-]+\.)[a-z][\w-]+)(?:(\/[^/?#]*)+)?(\?[^#]+)?(#.+)?$/i.test(
+    str
+  );
+};
